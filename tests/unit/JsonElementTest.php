@@ -121,12 +121,15 @@ class JsonElementTest extends TestCase
             'expected' => InvalidArgumentException::class,
         ];
 
+        // If executing with non-root user:
         $file = tempFileHelper::createTempFile('{}');
         chmod($file->getRealPath(), 0);
-        yield 'file not readable' => [
-            'file' => $file,
-            'expected' => InvalidArgumentException::class,
-        ];
+        if (!$file->isReadable()) {
+            yield 'file not readable' => [
+                'file' => $file,
+                'expected' => InvalidArgumentException::class,
+            ];
+        }
     }
 
     // Tests
