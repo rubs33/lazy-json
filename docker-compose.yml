@@ -1,0 +1,74 @@
+name: lazy-json
+services:
+    lib:
+        image: lazy-json:php-8.1-cli-alpine
+        pull_policy: never
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: runner
+        volumes:
+            - .:/usr/share/lazy-php
+            - /usr/share/lazy-php/vendor
+        env_file:
+            - .env
+        entrypoint: /bin/sh -c
+        command: >
+            '
+                echo "Lib lazy-json is ready"
+                echo "Access it using:"
+                echo -e "\t\$ docker compose exec lib sh"
+                echo ""
+                echo "To run the tests inside the container:"
+                echo -e "\t\$ composer test"
+                echo ""
+                echo "To run the tests outside the container:"
+                echo -e "\t\$ docker compose --profile test up"
+                echo ""
+                echo "To serve the doc (phpdoc) outside the container:"
+                echo -e "\t\$ docker compose --profile doc up"
+                sleep infinity
+            '
+
+    test:
+        image: lazy-json:php-8.1-cli-alpine
+        pull_policy: never
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: runner
+        ports:
+            - 8080:8080
+        env_file:
+            - .env
+        profiles:
+            - dev
+            - test
+        entrypoint: /bin/sh -c
+        command: >
+            '
+                composer phpstan
+                composer cs
+                composer deps
+                composer test
+                echo -e "\\nStarting to serve the test result (coverage) at http://localhost:8080"
+                php -S 0.0.0.0:8080 -t /usr/share/lazy-json/var/reports/tests/coverage/html/
+            '
+
+    doc:
+        image: phpdoc/phpdoc
+        volumes:
+            - .:/data
+            - /data/var
+        ports:
+            - 8081:8081
+        profiles:
+            - dev
+            - doc
+        entrypoint: /bin/bash -c
+        command: >
+            "
+                /opt/phpdoc/bin/phpdoc run --no-interaction --ansi --encoding=UTF-8 --title='Lazy Json' --cache-folder=/data/var/cache/phpdoc --log=/data/var/logs/phpdoc --directory=/data/src --examples-dir=/data/examples --visibility=public --target=/data/var/phpdoc
+                echo -e '\\nStarting to serve the phpdoc at http://localhost:8081'
+                php -S 0.0.0.0:8081 -t /data/var/phpdoc/
+            "

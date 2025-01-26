@@ -4,6 +4,7 @@ parameters:
     level: 10
     paths:
         - src
+    tmpDir: var/cache/phpstan
     ignoreErrors:
         -
             identifier: property.readOnlyAssignNotInConstructor

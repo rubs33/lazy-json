@@ -44,7 +44,7 @@
         }
     },
     "scripts": {
-        "test": "XDEBUG_MODE=coverage phpunit",
+        "test": "phpunit",
         "phpstan": "phpstan analyse -c phpstan.neon",
         "cs": "phpcs --standard=PSR12 src",
         "deps": "composer-dependency-analyser"
