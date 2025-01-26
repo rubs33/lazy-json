@@ -1,0 +1,15 @@
+/.env               export-ignore
+/.env.example       export-ignore
+/.git               export-ignore
+/.gitattribute      export-ignore
+/.gitignore         export-ignore
+/docs/              export-ignore
+/Dockerfile         export-ignore
+/docker-compose.yml export-ignore
+/examples           export-ignore
+/phpstan.neon       export-ignore
+/phpunit.xml        export-ignore
+/README.md          export-ignore
+/tests/             export-ignore
+
+*.php diff=php

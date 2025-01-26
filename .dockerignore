@@ -2,6 +2,7 @@
 .env
 .env.example
 .git
+.gitattributes
 .gitignore
 docker-compose.yml
 Dockerfile
