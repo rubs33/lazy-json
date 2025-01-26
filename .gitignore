@@ -1,4 +1,5 @@
 *.swp
 .env
+.phpunit.result.cache
 var
 vendor

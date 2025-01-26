@@ -2,6 +2,7 @@
 /.env.example       export-ignore
 /.git               export-ignore
 /.gitattribute      export-ignore
+/.github            export-ignore
 /.gitignore         export-ignore
 /docs/              export-ignore
 /Dockerfile         export-ignore

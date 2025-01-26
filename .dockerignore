@@ -3,7 +3,9 @@
 .env.example
 .git
 .gitattributes
+.github
 .gitignore
+.phpunit.result.cache
 docker-compose.yml
 Dockerfile
 var
