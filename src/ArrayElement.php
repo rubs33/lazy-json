@@ -110,7 +110,7 @@ class ArrayElement extends JsonElement implements ArrayAccess, Countable, Iterat
         $char = $this->readBytes(1);
         assert(
             $char === '[',
-            throw new UnexpectedValueException(sprintf(
+            new UnexpectedValueException(sprintf(
                 'Invalid JSON array. Unexpected char at position %d.',
                 $this->getCurrentFilePosition() - 1,
             )),
@@ -162,7 +162,7 @@ class ArrayElement extends JsonElement implements ArrayAccess, Countable, Iterat
         $char = $this->readBytes(1);
         assert(
             $char === ']',
-            throw new UnexpectedValueException(sprintf(
+            new UnexpectedValueException(sprintf(
                 'Invalid JSON array. Unexpected value at position %d (expected "]", received "%s").',
                 $this->getCurrentFilePosition() - 1,
                 $this->readBytes(10),
@@ -276,7 +276,7 @@ class ArrayElement extends JsonElement implements ArrayAccess, Countable, Iterat
         $char = $this->readBytes(1);
         assert(
             $char === '[',
-            throw new UnexpectedValueException(sprintf(
+            new UnexpectedValueException(sprintf(
                 'Invalid JSON array. Unexpected value for array at position %d.',
                 $this->getCurrentFilePosition() - 1,
             )),
@@ -301,7 +301,7 @@ class ArrayElement extends JsonElement implements ArrayAccess, Countable, Iterat
         $char = $this->readBytes(1);
         assert(
             $char === ']',
-            throw new UnexpectedValueException(sprintf(
+            new UnexpectedValueException(sprintf(
                 'Invalid JSON array. Unexpected char for array at position %d.',
                 $this->getCurrentFilePosition() - 1,
             )),
