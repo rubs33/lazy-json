@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         cacheDirectory="var/cache/phpunit"
+         executionOrder="depends,defects"
+         requireCoverageMetadata="true"
+         beStrictAboutCoverageMetadata="true"
+         beStrictAboutOutputDuringTests="true"
+         displayDetailsOnPhpunitDeprecations="true"
+         failOnPhpunitDeprecation="true"
+         failOnRisky="true"
+         failOnWarning="true">
+    <testsuites>
+        <testsuite name="default">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <source restrictDeprecations="true" restrictNotices="true" restrictWarnings="true">
+        <include>
+            <directory>src</directory>
+        </include>
+    </source>
+
+    <coverage>
+        <report>
+            <html outputDirectory="var/reports/tests/coverage/html" lowUpperBound="50" highLowerBound="90" />
+            <clover outputFile="var/reports/tests/coverage/clover.xml" />
+            <text outputFile="var/reports/tests/coverage/coverage.txt" showUncoveredFiles="false" showOnlySummary="true" />
+            <xml outputDirectory="var/reports/tests/coverage/xml" />
+        </report>
+    </coverage>
+
+    <logging>
+        <junit outputFile="var/reports/tests/junit.xml" />
+        <teamcity outputFile="var/reports/tests/teamcity.txt" />
+        <testdoxHtml outputFile="var/reports/tests/testdox.html" />
+        <testdoxText outputFile="var/reports/tests/testdox.txt" />
+    </logging>
+</phpunit>

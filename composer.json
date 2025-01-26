@@ -1,0 +1,52 @@
+{
+    "name": "lazy-json/lazy-json",
+    "description": "PHP class to parse large JSON files and provide a lazy-load interface",
+    "keywords": [
+        "json",
+        "parser",
+        "lazy-load",
+        "memory-efficient"
+    ],
+    "homepage": "https://github.com/rubs33/lazy-json",
+    "support": {
+        "source": "https://github.com/rubs33/lazy-json.git",
+        "docs": "https://github.com/rubs33/lazy-json/docs/API.md"
+    },
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rubens Takiguti Ribeiro",
+            "email": "rubs33@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "ext-ctype": "*",
+        "ext-json": "*",
+        "ext-spl": "*"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-strict-rules": "^2.0",
+        "squizlabs/php_codesniffer": "^3.0.0",
+        "shipmonk/composer-dependency-analyser": "^1.8",
+        "phpunit/phpunit": "^10.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "LazyJson\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LazyJson\\Tests\\Unit\\": "tests/unit/"
+        }
+    },
+    "scripts": {
+        "test": "XDEBUG_MODE=coverage phpunit",
+        "phpstan": "phpstan analyse -c phpstan.neon",
+        "cs": "phpcs --standard=PSR12 src",
+        "deps": "composer-dependency-analyser"
+    }
+}

@@ -1,0 +1,11 @@
+includes:
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+parameters:
+    level: 10
+    paths:
+        - src
+    ignoreErrors:
+        -
+            identifier: property.readOnlyAssignNotInConstructor
+        -
+            identifier: property.uninitializedReadonly
