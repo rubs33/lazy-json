@@ -56,3 +56,13 @@ jobs:
 
     - name: Run test suite
       run: composer run-script test
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: |
+          var/reports/tests/coverage/clover.xml
+          var/reports/tests/coverage/coverage.txt
+          var/reports/tests/junit.xml
+          var/reports/tests/testdox.txt
