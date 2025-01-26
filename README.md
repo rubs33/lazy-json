@@ -1,8 +1,8 @@
-# LazyJson
+# Lazy Json
 
 ## Description
 
-LazyJson is a PHP library that allows you to navigate a JSON file using a lazy-loaded, object-oriented interface.
+Lazy Json is a PHP library that allows you to navigate a JSON file using a lazy-loaded, object-oriented interface.
 
 Unlike `json_decode`, this library does not load the entire JSON into memory. Instead, it parses JSON elements on-demand based on the operations you request during navigation.
 
@@ -44,10 +44,10 @@ For a JSON file with:
 
 ## Installation
 
-To use this library, you can install it via Composer:
+To use this library, you can install it via [Composer](https://getcomposer.org/):
 
 ```sh
-$ composer require lazyjson/lazyjson
+$ composer require lazy-json/lazy-json
 ```
 
 ## Documentation / API
