@@ -1,6 +1,6 @@
 # Lazy Json Usage
 
-This document explains how to use the LazyJson library.
+This document explains how to use the Lazy Json library.
 If you are interested in the API specs of the classes, check [API](API.md)
 
 ## Loading a JSON file

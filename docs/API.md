@@ -6,7 +6,7 @@ If you are interested to know how to use it, you can see the [Usage](Usage.md).
 
 ## Classes
 
-### `LazyJson\JsonElement` implements [`JsonSerializable`](https://www.php.net/JsonSerializable), [`Stringable`](https://www.php.net/Stringable)
+### abstract `LazyJson\JsonElement` implements [`JsonSerializable`](https://www.php.net/JsonSerializable), [`Stringable`](https://www.php.net/Stringable)
 
 Abstract class for wrapper classes of JSON elements.
 
@@ -41,12 +41,9 @@ If you want to validate whether the current JSON file is valid, you can call thi
 
 Note: only the current element of the file will be parsed. If the element is a string that is a child of an array, `parse` will stop after reaching the end-of-string, represented by double quotes. That means: if you run `parse` over the root element of a JSON file, it will not check the remaining bytes after the end of the current element.
 
-
 #### public function `__toString()`: string
 
 Magic method to return the object as a string, when requested (from [`Stringable`](https://www.php.net/Stringable) interface)
-
-
 
 
 #### public function `jsonSerialize()`
@@ -88,7 +85,7 @@ Returns an iterator to traverse each decoded unicode symbol from the string elem
 
 ---
 
-### `LazyJson\ArrayElement` extends `LazyJson\JsonElement` implements [`ArrayAccess`](https://www.php.net/ArrayAccess), [Countable](https://www.php.net/Countable), [`IteratorAggregate`](https://www.php.net/IteratorAggregate)
+### `LazyJson\ArrayElement` extends `LazyJson\JsonElement` implements [`ArrayAccess`](https://www.php.net/ArrayAccess), [`Countable`](https://www.php.net/Countable), [`IteratorAggregate`](https://www.php.net/IteratorAggregate)
 
 Wrapper class for array values of a JSON file.
 
@@ -132,7 +129,7 @@ $value = $lazyObj->offsetGet(1);
 
 ---
 
-### `LazyJson\ObjectElement` extends `LazyJson\JsonElement` implements [`ArrayAccess`](https://www.php.net/ArrayAccess), [Countable](https://www.php.net/Countable), [`IteratorAggregate`](https://www.php.net/IteratorAggregate)
+### `LazyJson\ObjectElement` extends `LazyJson\JsonElement` implements [`ArrayAccess`](https://www.php.net/ArrayAccess), [`Countable`](https://www.php.net/Countable), [`IteratorAggregate`](https://www.php.net/IteratorAggregate)
 
 Wrapper class for object values of a JSON file.
 
@@ -170,6 +167,36 @@ Note: if the property exists and points to the value `null` in the JSON, this me
 Example:
 
 ```
-$value = $lazyObj[1];
-$value = $lazyObj->offsetGet(1);
+$value = $lazyObj['prop'];
+$value = $lazyObj->offsetGet('prop');
+```
+
+#### public function `__isset(string $name)`: bool
+
+Magic method that returns whether a property exists in the current object element.
+
+This method is called when the operator `->` is used over the object that is being tested by an `isset` call.
+
+Note: if the property exists and points to the value `null` in the JSON, this method will return `true`.
+
+Example:
+
+```
+$exists = isset($lazyObj->prop);
+$exists = $lazyObj->__isset('prop');
+```
+
+#### public function `__get(string $name)`: ?LazyJson\JsonElement
+
+Magic method that returns a property of the JSON object or `null` if it does not exist.
+
+This method is called when the operator `->` is used in a read context.
+
+Note: if the property exists and points to the value `null` in the JSON, this method will return an instance of `LazyJson\NullElement`, that will wrap the value `null`.
+
+Example:
+
+```
+$value = $lazyObj->prop;
+$value = $lazyObj->__get('prop');
 ```

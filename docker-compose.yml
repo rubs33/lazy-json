@@ -8,8 +8,8 @@ services:
             dockerfile: Dockerfile
             target: runner
         volumes:
-            - .:/usr/share/lazy-php
-            - /usr/share/lazy-php/vendor
+            - .:/usr/share/lazy-json
+            - /usr/share/lazy-json/vendor
         env_file:
             - .env
         entrypoint: /bin/sh -c

@@ -10,7 +10,7 @@
     "homepage": "https://github.com/rubs33/lazy-json",
     "support": {
         "source": "https://github.com/rubs33/lazy-json.git",
-        "docs": "https://github.com/rubs33/lazy-json/docs/API.md"
+        "docs": "https://github.com/rubs33/lazy-json/blob/main/docs/index.md"
     },
     "type": "library",
     "license": "MIT",
