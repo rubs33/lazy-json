@@ -6,13 +6,18 @@ namespace LazyJson;
 
 use UnexpectedValueException;
 
+use function sprintf;
+
 /**
  * Wrapper class that represents a boolean of a JSON
  */
 class BooleanElement extends JsonElement
 {
-    /** The boolean value */
-    private readonly bool $value;
+    /**
+     * The boolean value
+     * @var bool
+     */
+    protected readonly bool $value;
 
     /**
      * Magic method to return the object as a string, when requested
@@ -71,7 +76,15 @@ class BooleanElement extends JsonElement
                 ));
             }
             $this->setValue(false);
+
+        // @codeCoverageIgnoreStart
+        } else {
+            throw new UnexpectedValueException(sprintf(
+                'Invalid JSON. Unexpected value at position %d.',
+                $this->startPosition,
+            ));
         }
+        // @codeCoverageIgnoreEnd
     }
 
     /**

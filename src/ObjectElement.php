@@ -14,6 +14,7 @@ use UnexpectedValueException;
 
 use function array_key_exists;
 use function is_string;
+use function sprintf;
 
 /**
  * Wrapper class that represents an Object of a JSON
@@ -148,6 +149,7 @@ class ObjectElement extends JsonElement implements ArrayAccess, Countable, Itera
             return;
         }
 
+        /** @var int<0,max> */
         $totalProperties = 0;
 
         $this->setFilePosition($this->startPosition);
@@ -155,7 +157,7 @@ class ObjectElement extends JsonElement implements ArrayAccess, Countable, Itera
         // Read "{"
         $char = $this->readBytes(1);
         assert(
-            $char === '[',
+            $char === '{',
             new UnexpectedValueException(sprintf(
                 'Invalid JSON object. Unexpected char at position %d.',
                 $this->getCurrentFilePosition() - 1,
@@ -228,7 +230,7 @@ class ObjectElement extends JsonElement implements ArrayAccess, Countable, Itera
                 throw new UnexpectedValueException(sprintf(
                     'Invalid JSON object. Unexpected value at position %d (expected "," or "}", received "%s")',
                     $currentPosition,
-                    $this->readBytes(10),
+                    $this->readBytes(1),
                 ));
             }
         }

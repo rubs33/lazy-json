@@ -36,6 +36,7 @@ use Stringable;
 use UnexpectedValueException;
 
 use function ctype_digit;
+use function sprintf;
 
 use const SEEK_CUR;
 use const SEEK_SET;
@@ -81,6 +82,13 @@ abstract class JsonElement implements JsonSerializable, Stringable
      * @return array<mixed>|object|string|int|float|bool|null
      */
     abstract public function getDecodedValue(bool $associative = false): array|object|string|int|float|bool|null;
+
+    /**
+     * Return a string that represents the object
+     *
+     * @return string
+     */
+    abstract public function __toString(): string;
 
     /**
      * Parse/Read the current element of the JSON file and advance the cursor to the next byte after
@@ -352,7 +360,7 @@ abstract class JsonElement implements JsonSerializable, Stringable
 
         if ($requireSize && strlen($bytes) !== $size && $this->fileHandler->eof()) {
             throw new UnexpectedValueException(sprintf(
-                'Invalid string. Unexpectedd end of file at position %d.',
+                'Invalid JSON. Unexpectedd end of file at position %d.',
                 $currentPosition,
             ));
         }

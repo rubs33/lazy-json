@@ -13,7 +13,7 @@ use function is_infinite;
 use function is_int;
 use function ctype_digit;
 use function json_decode;
-use function json_encode;
+use function sprintf;
 use function var_export;
 
 use const SEEK_CUR;
@@ -21,12 +21,12 @@ use const JSON_THROW_ON_ERROR;
 use const JSON_PRESERVE_ZERO_FRACTION;
 
 /**
- * Wrapper class that represents an number of a JSON
+ * Wrapper class that represents a number of a JSON
  */
 class NumberElement extends JsonElement
 {
     /**
-     * The numeric  value of the JSON number
+     * The numeric value of the JSON number
      * @var int|float
      */
     protected readonly int|float $value;

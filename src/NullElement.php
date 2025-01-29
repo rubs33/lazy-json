@@ -6,6 +6,8 @@ namespace LazyJson;
 
 use UnexpectedValueException;
 
+use function sprintf;
+
 /**
  * Wrapper class that represents a null of a JSON
  */

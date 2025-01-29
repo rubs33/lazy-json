@@ -14,6 +14,7 @@ use UnexpectedValueException;
 
 use function array_key_exists;
 use function is_int;
+use function sprintf;
 
 /**
  * Wrapper class that represents an array of a JSON
