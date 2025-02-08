@@ -1,6 +1,6 @@
-# Lazy Json API
+# LazyJson API
 
-This document exposes the Lazy Json API with the available classes and methods.
+This document exposes the LazyJson API with the available classes and methods.
 
 If you are interested to know how to use it, you can see the [Usage](Usage.md).
 

@@ -1,5 +1,5 @@
 # Table of Contents
 
-* [Lazy Json Usage](Usage.md)
-* [Lazy Json API](API.md)
+* [LazyJson Usage](Usage.md)
+* [LazyJson API](API.md)
 * [Contributing](CONTRIBUTING.md)

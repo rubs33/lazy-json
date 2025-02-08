@@ -1,6 +1,6 @@
-# Lazy Json Usage
+# LazyJson Usage
 
-This document explains how to use the Lazy Json library.
+This document explains how to use the LazyJson library.
 If you are interested in the API specs of the classes, check [API](API.md)
 
 ## Loading a JSON file
@@ -28,7 +28,7 @@ Note: the mentioned classes are used as wrapper classes to traverse the JSON hie
 
 ## Detecting the type of the element
 
-To detect the type of a lazy JSON element, just use PHP's [`instanceof`](https://www.php.net/instanceof). Example:
+To detect the type of a LazyJSON element, just use PHP's [`instanceof`](https://www.php.net/instanceof). Example:
 
 ```
 $lazyObj = \LazyJson\JsonElement::load($file);

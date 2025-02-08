@@ -1,12 +1,12 @@
-# Lazy Json
+# LazyJson
 
 ## Description
 
-Lazy Json is a PHP library that allows you to navigate a JSON file using a lazy-loaded, object-oriented interface.
+LazyJson is a PHP library that allows you to navigate a JSON file through a lazy-loaded, object-oriented interface.
 
-Unlike `json_decode`, this library does not load the entire JSON into memory. Instead, it parses JSON elements on-demand based on the operations you request during navigation.
+Unlike `json_decode`, which loads the entire JSON file into memory at once, this library parses only the necessary elements on demand, based on the operations you perform during navigation.
 
-Its primary goal is to provide a **memory-efficient** way to **access** JSON data, not to modify it. While it can be used to validate a JSON structure, it assumes the JSON is well-formed and only parses elements as needed to return the requested data.
+Its primary goal is to provide a **memory-efficient** way to **access** JSON data rather than modifying it. While it can be used to validate a JSON structure, it assumes the JSON is well-formed and only parses elements as needed to return the requested data.
 
 ### Advantages:
 * **Memory-efficient**: Optimized for large JSON files, supporting arrays, objects, and strings, with minimal memory usage during navigation.
