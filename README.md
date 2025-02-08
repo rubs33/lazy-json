@@ -50,6 +50,12 @@ To use this library, you can install it via [Composer](https://getcomposer.org/)
 $ composer require lazy-json/lazy-json
 ```
 
+If you use PHP 7.4, you can try:
+
+```sh
+$ composer require 'lazy-json/lazy-json:dev-php7'
+```
+
 ## Documentation / API
 
 To know how to use it, check the page [Usage](docs/Usage.md).
