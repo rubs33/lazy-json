@@ -5,7 +5,8 @@
         "json",
         "parser",
         "lazy-load",
-        "memory-efficient"
+        "memory-efficient",
+        "json_decode"
     ],
     "homepage": "https://github.com/rubs33/lazy-json",
     "support": {
