@@ -24,7 +24,7 @@ use PHPUnit\Framework\Attributes\{
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
-#[Testdox('ObjectElement')]
+#[TestDox('ObjectElement')]
 #[CoversClass(ObjectElement::class)]
 #[UsesClass(ArrayElement::class)]
 #[UsesClass(BooleanElement::class)]

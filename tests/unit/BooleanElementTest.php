@@ -18,7 +18,7 @@ use PHPUnit\Framework\Attributes\{
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
-#[Testdox('BooleanElement')]
+#[TestDox('BooleanElement')]
 #[CoversClass(BooleanElement::class)]
 #[UsesClass(ArrayElement::class)]
 #[UsesClass(JsonElement::class)]
