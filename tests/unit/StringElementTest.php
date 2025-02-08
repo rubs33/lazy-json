@@ -3,27 +3,19 @@
 namespace LazyJson\Tests\Unit;
 
 use LazyJson\{
-    ArrayElement,
     JsonElement,
     StringElement,
 };
 use LazyJson\Tests\Unit\Fixtures\TempFileHelper;
-use PHPUnit\Framework\Attributes\{
-    CoversClass,
-    DataProvider,
-    Group,
-    Large,
-    TestDox,
-    UsesClass,
-};
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
-#[TestDox('StringElement')]
-#[CoversClass(StringElement::class)]
-#[UsesClass(ArrayElement::class)]
-#[UsesClass(JsonElement::class)]
-#[Large]
+/**
+ * @testdox \LazyJson\StringElement
+ * @covers \LazyJson\StringElement
+ * @uses \LazyJson\ArrayElement
+ * @uses \LazyJson\JsonElement
+ */
 class StringElementTest extends TestCase
 {
     // Static methods
@@ -132,8 +124,10 @@ class StringElementTest extends TestCase
 
     // Tests
 
-    #[DataProvider('jsonStringProvider')]
-    #[TestDox('loading a JSON with a string must return an StringElement instance.')]
+    /**
+     * @dataProvider jsonStringProvider
+     * @testdox loading a JSON with a string must return an StringElement instance.
+     */
     public function testInstance($json): void
     {
         // Prepare
@@ -147,8 +141,10 @@ class StringElementTest extends TestCase
         $this->assertInstanceOf(JsonElement::class, $instance);
     }
 
-    #[DataProvider('jsonStringProvider')]
-    #[TestDox('loading a JSON with a string must be able to convert to PHP string.')]
+    /**
+     * @dataProvider jsonStringProvider
+     * @testdox loading a JSON with a string must be able to convert to PHP string.
+     */
     public function testStringable($json): void
     {
         // Prepare
@@ -162,8 +158,10 @@ class StringElementTest extends TestCase
         $this->assertEquals(json_decode($json), $value);
     }
 
-    #[DataProvider('jsonStringProvider')]
-    #[TestDox('loading a JSON with a string expects the elements to be a string.')]
+    /**
+     * @dataProvider jsonStringProvider
+     * @testdox loading a JSON with a string expects the elements to be a string.
+     */
     public function testIteratorTypes(string $json): void
     {
         // Prepare
@@ -177,8 +175,10 @@ class StringElementTest extends TestCase
         $this->assertContainsOnly('string', $iterator);
     }
 
-    #[DataProvider('jsonStringProvider')]
-    #[TestDox('loading a JSON with a string expects to be possissible to traverse the elements twice.')]
+    /**
+     * @dataProvider jsonStringProvider
+     * @testdox loading a JSON with a string expects to be possissible to traverse the elements twice.
+     */
     public function testMultipleTraverseIterator(string $json): void
     {
         // Prepare
@@ -193,8 +193,10 @@ class StringElementTest extends TestCase
         $this->assertEquals($elements1, $elements2);
     }
 
-    #[DataProvider('jsonStringProvider')]
-    #[TestDox('loading a JSON with a string expects to be possissible to traverse the elements twice, even with disabled cache.')]
+    /**
+     * @dataProvider jsonStringProvider
+     * @testdox loading a JSON with a string expects to be possissible to traverse the elements twice, even with disabled cache.
+     */
     public function testMultipleTraverseWithoutCacheIterator(string $json): void
     {
         // Prepare
@@ -209,8 +211,10 @@ class StringElementTest extends TestCase
         $this->assertEquals($elements1, $elements2);
     }
 
-    #[DataProvider('jsonStringProvider')]
-    #[TestDox('loading a JSON with a string expects the decoded elements to be correct, even if the file cursor is moved during the iteration.')]
+    /**
+     * @dataProvider jsonStringProvider
+     * @testdox loading a JSON with a string expects the decoded elements to be correct, even if the file cursor is moved during the iteration.
+     */
     public function testIteratorValuesHavingFileCursorMoves(string $json): void
     {
         // Prepare
@@ -230,8 +234,10 @@ class StringElementTest extends TestCase
         $this->assertEquals(json_decode($json), $str);
     }
 
-    #[DataProvider('jsonStringProvider')]
-    #[TestDox('loading a JSON with a string expects the decoded elements to be correct, even if the file cursor is moved during the iteration and cache is disabled.')]
+    /**
+     * @dataProvider jsonStringProvider
+     * @testdox loading a JSON with a string expects the decoded elements to be correct, even if the file cursor is moved during the iteration and cache is disabled.
+     */
     public function testIteratorValuesHavingFileCursorMovesAndDisabledCache(string $json): void
     {
         // Prepare
@@ -251,8 +257,10 @@ class StringElementTest extends TestCase
         $this->assertEquals(json_decode($json), $str);
     }
 
-    #[DataProvider('jsonStringProvider')]
-    #[TestDox('loading a JSON with a string expects to be JSON serializable.')]
+    /**
+     * @dataProvider jsonStringProvider
+     * @testdox loading a JSON with a string expects to be JSON serializable.
+     */
     public function testJsonSerializable(string $json): void
     {
         // Prepare
@@ -266,8 +274,10 @@ class StringElementTest extends TestCase
         $this->assertEquals(json_encode(json_decode($json)), $result);
     }
 
-    #[DataProvider('jsonEscapedSequenceProvider')]
-    #[TestDox('loading a JSON with a string containing escaped sequences expects to decode the sequence correctly.')]
+    /**
+     * @dataProvider jsonEscapedSequenceProvider
+     * @testdox loading a JSON with a string containing escaped sequences expects to decode the sequence correctly.
+     */
     public function testEscapedSequences(string $json, string $expected): void
     {
         // Prepare
@@ -281,8 +291,10 @@ class StringElementTest extends TestCase
         $this->assertEquals($expected, $value);
     }
 
-    #[DataProvider('invalidJsonStringProvider')]
-    #[TestDox('loading a JSON with an invalid string expects to throw an exception.')]
+    /**
+     * @dataProvider invalidJsonStringProvider
+     * @testdox loading a JSON with an invalid string expects to throw an exception.
+     */
     public function testInvalidJsonString(string $json): void
     {
         // Prepare
@@ -296,7 +308,9 @@ class StringElementTest extends TestCase
         $instance->getDecodedValue();
     }
 
-    #[TestDox('loading a JSON with an array with 2 strings expects to parse the first element to get the second.')]
+    /**
+     * @testdox loading a JSON with an array with 2 strings expects to parse the first element to get the second.
+     */
     public function testReadCurrentJsonElement(): void
     {
         // Prepare
@@ -310,8 +324,10 @@ class StringElementTest extends TestCase
         $this->assertEquals('def', $value);
     }
 
-    #[Group('memory')]
-    #[Testdox('loading a very big JSON string, it should not increase memory usage more than 1Kb.')]
+    /**
+     * @group memory
+     * @testdox loading a very big JSON string, it should not increase memory usage more than 1Kb.
+     */
     public function testMemoryUsage(): void
     {
         // Prepare

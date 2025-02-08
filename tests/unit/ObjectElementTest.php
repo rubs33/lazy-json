@@ -3,37 +3,25 @@
 namespace LazyJson\Tests\Unit;
 
 use LazyJson\{
-    ArrayElement,
-    BooleanElement,
     JsonElement,
-    NumberElement,
-    NullElement,
     ObjectElement,
-    StringElement,
 };
 use LazyJson\Tests\Unit\Fixtures\TempFileHelper;
 use LogicException;
-use PHPUnit\Framework\Attributes\{
-    CoversClass,
-    DataProvider,
-    Group,
-    Large,
-    TestDox,
-    UsesClass,
-};
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
-#[Testdox('ObjectElement')]
-#[CoversClass(ObjectElement::class)]
-#[UsesClass(ArrayElement::class)]
-#[UsesClass(BooleanElement::class)]
-#[UsesClass(JsonElement::class)]
-#[UsesClass(NumberElement::class)]
-#[UsesClass(NullElement::class)]
-#[UsesClass(ObjectElement::class)]
-#[UsesClass(StringElement::class)]
-#[Large]
+/**
+ * @testdox \LazyJson\ObjectElement
+ * @covers \LazyJson\ObjectElement
+ * @uses \LazyJson\ArrayElement
+ * @uses \LazyJson\BooleanElement
+ * @uses \LazyJson\JsonElement
+ * @uses \LazyJson\NumberElement
+ * @uses \LazyJson\NullElement
+ * @uses \LazyJson\ObjectElement
+ * @uses \LazyJson\StringElement
+ */
 class ObjectElementTest extends TestCase
 {
     // Static methods
@@ -125,8 +113,10 @@ class ObjectElementTest extends TestCase
 
     // Tests
 
-    #[DataProvider('jsonObjectProvider')]
-    #[TestDox('loading a JSON with an object must return an ObjectElement instance.')]
+    /**
+     * @dataProvider jsonObjectProvider
+     * @testdox loading a JSON with an object must return an ObjectElement instance.
+     */
     public function testInstance($json): void
     {
         // Prepare
@@ -140,8 +130,10 @@ class ObjectElementTest extends TestCase
         $this->assertInstanceOf(JsonElement::class, $instance);
     }
 
-    #[DataProvider('jsonObjectProvider')]
-    #[Testdox('loading a JSON with an object must be able to convert to string.')]
+    /**
+     * @dataProvider jsonObjectProvider
+     * @testdox loading a JSON with an object must be able to convert to string.
+     */
     public function testStringable($json): void
     {
         // Prepare
@@ -155,8 +147,10 @@ class ObjectElementTest extends TestCase
         $this->assertEquals('Object', $value);
     }
 
-    #[DataProvider('jsonObjectProvider')]
-    #[TestDox('loading a JSON with an object expects the elements to be a JsonElement.')]
+    /**
+     * @dataProvider jsonObjectProvider
+     * @testdox loading a JSON with an object expects the elements to be a JsonElement.
+     */
     public function testIteratorTypes(string $json): void
     {
         // Prepare
@@ -170,8 +164,10 @@ class ObjectElementTest extends TestCase
         $this->assertContainsOnlyInstancesOf(JsonElement::class, $iterator);
     }
 
-    #[DataProvider('jsonObjectProvider')]
-    #[TestDox('loading a JSON with an object expects to be possissible to traverse the elements twice.')]
+    /**
+     * @dataProvider jsonObjectProvider
+     * @testdox loading a JSON with an object expects to be possissible to traverse the elements twice.
+     */
     public function testMultipleTraverseIterator(string $json): void
     {
         // Prepare
@@ -180,11 +176,11 @@ class ObjectElementTest extends TestCase
 
         // Execute
         $elements1 = (object) array_map(
-            static fn(JsonElement $element): mixed => $element->getDecodedValue(),
+            static fn(JsonElement $element) => $element->getDecodedValue(),
             iterator_to_array($instance->getIterator()),
         );
         $elements2 = (object) array_map(
-            static fn(JsonElement $element): mixed => $element->getDecodedValue(),
+            static fn(JsonElement $element) => $element->getDecodedValue(),
             iterator_to_array($instance->getIterator()),
         );
 
@@ -192,8 +188,10 @@ class ObjectElementTest extends TestCase
         $this->assertEquals($elements1, $elements2);
     }
 
-    #[DataProvider('jsonObjectProvider')]
-    #[TestDox('loading a JSON with an object expects to be possissible to traverse the elements twice, even with disabled cache.')]
+    /**
+     * @dataProvider jsonObjectProvider
+     * @testdox loading a JSON with an object expects to be possissible to traverse the elements twice, even with disabled cache.
+     */
     public function testMultipleTraverseWithoutCacheIterator(string $json): void
     {
         // Prepare
@@ -202,11 +200,11 @@ class ObjectElementTest extends TestCase
 
         // Execute
         $elements1 = (object) array_map(
-            static fn(JsonElement $element): mixed => $element->getDecodedValue(),
+            static fn(JsonElement $element) => $element->getDecodedValue(),
             iterator_to_array($instance->getIterator()),
         );
         $elements2 = (object) array_map(
-            static fn(JsonElement $element): mixed => $element->getDecodedValue(),
+            static fn(JsonElement $element) => $element->getDecodedValue(),
             iterator_to_array($instance->getIterator()),
         );
 
@@ -214,8 +212,10 @@ class ObjectElementTest extends TestCase
         $this->assertEquals($elements1, $elements2);
     }
 
-    #[DataProvider('jsonObjectWithDecodedValuesProvider')]
-    #[TestDox('loading a JSON with an object expects to be possible to decode elements.')]
+    /**
+     * @dataProvider jsonObjectWithDecodedValuesProvider
+     * @testdox loading a JSON with an object expects to be possible to decode elements.
+     */
     public function testIteratorValues(string $json, object $expected): void
     {
         // Prepare
@@ -225,7 +225,7 @@ class ObjectElementTest extends TestCase
         // Execute
         $iterator = $instance->getIterator();
         $elements = (object) array_map(
-            static fn(JsonElement $element): mixed => $element->getDecodedValue(),
+            static fn(JsonElement $element) => $element->getDecodedValue(),
             iterator_to_array($iterator),
         );
 
@@ -233,8 +233,10 @@ class ObjectElementTest extends TestCase
         $this->assertEquals($expected, $elements);
     }
 
-    #[DataProvider('jsonObjectWithDecodedValuesProvider')]
-    #[TestDox('loading a JSON with an object expects the decoded elements to be equal $expected, even if the file cursor is moved during the iteration.')]
+    /**
+     * @dataProvider jsonObjectWithDecodedValuesProvider
+     * @testdox loading a JSON with an object expects the decoded elements to be equal $expected, even if the file cursor is moved during the iteration.
+     */
     public function testIteratorValuesHavingFileCursorMoves(string $json, object $expected): void
     {
         // Prepare
@@ -254,8 +256,10 @@ class ObjectElementTest extends TestCase
         $this->assertEquals($expected, $elements);
     }
 
-    #[DataProvider('jsonObjectWithDecodedValuesProvider')]
-    #[TestDox('loading a JSON with an object expects the decoded elements to be equal $expected, even if the file cursor is moved during the iteration and cache is disabled.')]
+    /**
+     * @dataProvider jsonObjectWithDecodedValuesProvider
+     * @testdox loading a JSON with an object expects the decoded elements to be equal $expected, even if the file cursor is moved during the iteration and cache is disabled.
+     */
     public function testIteratorValuesHavingFileCursorMovesAndDisabledCache(string $json, object $expected): void
     {
         // Prepare
@@ -275,7 +279,9 @@ class ObjectElementTest extends TestCase
         $this->assertEquals($expected, $elements);
     }
 
-    #[TestDox('loading a JSON with an object expects to be possible to decode it as a PHP object')]
+    /**
+     * @testdox loading a JSON with an object expects to be possible to decode it as a PHP object
+     */
     public function testDecodeValueAsObject(): void
     {
         // Prepare
@@ -289,7 +295,9 @@ class ObjectElementTest extends TestCase
         $this->assertEquals((object) ['x' => 1], $decodedObject);
     }
 
-    #[TestDox('loading a JSON with an object expects to be possible to decode it as a PHP associative array')]
+    /**
+     * @testdox loading a JSON with an object expects to be possible to decode it as a PHP associative array
+     */
     public function testDecodeValueAsAssociativeArray(): void
     {
         // Prepare
@@ -303,8 +311,10 @@ class ObjectElementTest extends TestCase
         $this->assertEquals(['x' => 1], $decodedArray);
     }
 
-    #[DataProvider('nonEmptyJsonObjectWithValuesProvider')]
-    #[TestDox('loading a JSON with an object expects to acess random elements correctly.')]
+    /**
+     * @dataProvider nonEmptyJsonObjectWithValuesProvider
+     * @testdox loading a JSON with an object expects to acess random elements correctly.
+     */
     public function testOffsetGet(string $json, object $expected): void
     {
         // Prepare
@@ -328,8 +338,10 @@ class ObjectElementTest extends TestCase
         $this->assertEquals(null, $instance['invalid_position']);
     }
 
-    #[DataProvider('nonEmptyJsonObjectWithValuesProvider')]
-    #[TestDox('loading a JSON with an object expects to acess random elements correctly, even if cache is disabled.')]
+    /**
+     * @dataProvider nonEmptyJsonObjectWithValuesProvider
+     * @testdox loading a JSON with an object expects to acess random elements correctly, even if cache is disabled.
+     */
     public function testOffsetGetHavingDisabledCache(string $json, object $expected): void
     {
         // Prepare
@@ -348,8 +360,10 @@ class ObjectElementTest extends TestCase
         $this->assertEquals(null, $instance['invalid_position']);
     }
 
-    #[DataProvider('nonEmptyJsonObjectWithValuesProvider')]
-    #[TestDox('loading a JSON with an object expects to be able to check if offset exists.')]
+    /**
+     * @dataProvider nonEmptyJsonObjectWithValuesProvider
+     * @testdox loading a JSON with an object expects to be able to check if offset exists.
+     */
     public function testOffsetExists(string $json, object $expected): void
     {
         // Prepare
@@ -367,8 +381,10 @@ class ObjectElementTest extends TestCase
         $this->assertEquals(false, isset($instance['invalid_position']));
     }
 
-    #[DataProvider('nonEmptyJsonObjectWithValuesProvider')]
-    #[TestDox('loading a JSON with an object expects to be able to check if offset exists, even if cache is disabled.')]
+    /**
+     * @dataProvider nonEmptyJsonObjectWithValuesProvider
+     * @testdox loading a JSON with an object expects to be able to check if offset exists, even if cache is disabled.
+     */
     public function testOffsetExistsHavingDisabledCache(string $json, object $expected): void
     {
         // Prepare
@@ -385,7 +401,9 @@ class ObjectElementTest extends TestCase
         $this->assertEquals(false, isset($instance['invalid_position']));
     }
 
-    #[TestDox('loading a JSON with an object expects to be able to check if offset exists using cache.')]
+    /**
+     * @testdox loading a JSON with an object expects to be able to check if offset exists using cache.
+     */
     public function testOffsetExistsCache(): void
     {
         // Prepare
@@ -410,8 +428,10 @@ class ObjectElementTest extends TestCase
         $this->assertEquals(false, isset($instance['invalid_position']));
     }
 
-    #[DataProvider('nonEmptyJsonObjectWithValuesProvider')]
-    #[TestDox('loading a JSON with an object expects to be able to check if property exists.')]
+    /**
+     * @dataProvider nonEmptyJsonObjectWithValuesProvider
+     * @testdox loading a JSON with an object expects to be able to check if property exists.
+     */
     public function testIsset(string $json, object $expected): void
     {
         // Prepare
@@ -428,8 +448,10 @@ class ObjectElementTest extends TestCase
         $this->assertEquals(false, isset($instance->invalid_position));
     }
 
-    #[DataProvider('nonEmptyJsonObjectWithValuesProvider')]
-    #[Testdox('loading a JSON with an object expects to be able to check if property exists, even if cache is disabled.')]
+    /**
+     * @dataProvider nonEmptyJsonObjectWithValuesProvider
+     * @testdox loading a JSON with an object expects to be able to check if property exists, even if cache is disabled.
+     */
     public function testIssetHavingDisabledCache(string $json, object $expected): void
     {
         // Prepare
@@ -445,7 +467,9 @@ class ObjectElementTest extends TestCase
         $this->assertEquals(false, isset($instance->invalid_position));
     }
 
-    #[TestDox('loading a JSON with an object expects to be able to check if property exists using cache.')]
+    /**
+     * @testdox loading a JSON with an object expects to be able to check if property exists using cache.
+     */
     public function testIssetCache(): void
     {
         // Prepare
@@ -468,8 +492,10 @@ class ObjectElementTest extends TestCase
         $this->assertEquals(true, isset($instance->z));
     }
 
-    #[DataProvider('nonEmptyJsonObjectWithValuesProvider')]
-    #[TestDox('loading a JSON with an object expects to be able to use magic get.')]
+    /**
+     * @dataProvider nonEmptyJsonObjectWithValuesProvider
+     * @testdox loading a JSON with an object expects to be able to use magic get.
+     */
     public function testMagicGet(string $json, object $expected): void
     {
         // Prepare
@@ -486,8 +512,10 @@ class ObjectElementTest extends TestCase
         $this->assertEquals(null, $instance->invalid_position);
     }
 
-    #[DataProvider('nonEmptyJsonObjectWithValuesProvider')]
-    #[TestDox('loading a JSON with an object expects to be able to use magic get, even if cache is disabled.')]
+    /**
+     * @dataProvider nonEmptyJsonObjectWithValuesProvider
+     * @testdox loading a JSON with an object expects to be able to use magic get, even if cache is disabled.
+     */
     public function testMagicGetHavingDisabledCache(string $json, object $expected): void
     {
         // Prepare
@@ -503,7 +531,9 @@ class ObjectElementTest extends TestCase
         $this->assertEquals(null, $instance->invalid_position);
     }
 
-    #[TestDox('loading a JSON with an object expects to be able to use magic get using cache.')]
+    /**
+     * @testdox loading a JSON with an object expects to be able to use magic get using cache.
+     */
     public function testMagicGetCache(): void
     {
         // Prepare
@@ -526,7 +556,9 @@ class ObjectElementTest extends TestCase
         $this->assertEquals(3, $instance->z->getDecodedValue());
     }
 
-    #[TestDox('loading a JSON with an object expects to throw an exeption if trying to set a property.')]
+    /**
+     * @testdox loading a JSON with an object expects to throw an exeption if trying to set a property.
+     */
     public function testMagicSet(): void
     {
         // Prepare
@@ -541,7 +573,9 @@ class ObjectElementTest extends TestCase
         $instance->z = true;
     }
 
-    #[TestDox('loading a JSON with an object expects to throw an exeption if trying to unset a property.')]
+    /**
+     * @testdox loading a JSON with an object expects to throw an exeption if trying to unset a property.
+     */
     public function testMagicUnset(): void
     {
         // Prepare
@@ -556,7 +590,9 @@ class ObjectElementTest extends TestCase
         unset($instance->x);
     }
 
-    #[TestDox('loading a JSON with an object expects to throw an exeption if trying to set an element to an offset.')]
+    /**
+     * @testdox loading a JSON with an object expects to throw an exeption if trying to set an element to an offset.
+     */
     public function testOffsetSet(): void
     {
         // Prepare
@@ -571,7 +607,9 @@ class ObjectElementTest extends TestCase
         $instance['z'] = true;
     }
 
-    #[TestDox('loading a JSON with an object expects to throw an exeption if trying to unset an element of an offset.')]
+    /**
+     * @testdox loading a JSON with an object expects to throw an exeption if trying to unset an element of an offset.
+     */
     public function testOffsetUnset(): void
     {
         // Prepare
@@ -586,8 +624,10 @@ class ObjectElementTest extends TestCase
         unset($instance['x']);
     }
 
-    #[DataProvider('jsonObjectWithDecodedValuesProvider')]
-    #[TestDox('loading a JSON with an object expects to check the count correctly.')]
+    /**
+     * @dataProvider jsonObjectWithDecodedValuesProvider
+     * @testdox loading a JSON with an object expects to check the count correctly.
+     */
     public function testCount(string $json, object $expected): void
     {
         // Prepare
@@ -601,8 +641,10 @@ class ObjectElementTest extends TestCase
         $this->assertEquals(count((array) $expected), $count);
     }
 
-    #[DataProvider('jsonObjectWithDecodedValuesProvider')]
-    #[TestDox('loading a JSON with an object expects to check the count twice correctly.')]
+    /**
+     * @dataProvider jsonObjectWithDecodedValuesProvider
+     * @testdox loading a JSON with an object expects to check the count twice correctly.
+     */
     public function testCountTwice(string $json, object $expected): void
     {
         // Prepare
@@ -618,8 +660,10 @@ class ObjectElementTest extends TestCase
         $this->assertEquals(count((array) $expected), $count2);
     }
 
-    #[DataProvider('jsonObjectWithDecodedValuesProvider')]
-    #[TestDox('loading a JSON with an object expects to check the count twice correctly, even if cache is disabled.')]
+    /**
+     * @dataProvider jsonObjectWithDecodedValuesProvider
+     * @testdox loading a JSON with an object expects to check the count twice correctly, even if cache is disabled.
+     */
     public function testCountTwiceHavingDisabledCache(string $json, object $expected): void
     {
         // Prepare
@@ -635,8 +679,10 @@ class ObjectElementTest extends TestCase
         $this->assertEquals(count((array) $expected), $count2);
     }
 
-    #[DataProvider('jsonObjectWithDecodedValuesProvider')]
-    #[TestDox('loading a JSON with an object expects to be JSON serializable.')]
+    /**
+     * @dataProvider jsonObjectWithDecodedValuesProvider
+     * @testdox loading a JSON with an object expects to be JSON serializable.
+     */
     public function testJsonSerializable(string $json, object $expected): void
     {
         // Prepare
@@ -650,8 +696,10 @@ class ObjectElementTest extends TestCase
         $this->assertEquals(json_encode($expected), $result);
     }
 
-    #[DataProvider('invalidJsonObjectProvider')]
-    #[TestDox('loading a JSON with an invalid object expects to throw an exception.')]
+    /**
+     * @dataProvider invalidJsonObjectProvider
+     * @testdox loading a JSON with an invalid object expects to throw an exception.
+     */
     public function testInvalidJsonObject(string $json): void
     {
         // Prepare
@@ -665,7 +713,9 @@ class ObjectElementTest extends TestCase
         $instance->getDecodedValue();
     }
 
-    #[TestDox('loading a JSON with an array with 2 objects expects to parse the first element to get the second.')]
+    /**
+     * @testdox loading a JSON with an array with 2 objects expects to parse the first element to get the second.
+     */
     public function testReadCurrentJsonElement(): void
     {
         // Prepare
@@ -679,8 +729,10 @@ class ObjectElementTest extends TestCase
         $this->assertEquals((object) ['x' => 2], $value);
     }
 
-    #[Group('memory')]
-    #[TestDox('loading a very big JSON object, it should not increase memory usage more than 1Kb.')]
+    /**
+     * @group memory
+     * @testdox loading a very big JSON object, it should not increase memory usage more than 1Kb.
+     */
     public function testMemoryUsage(): void
     {
         // Prepare

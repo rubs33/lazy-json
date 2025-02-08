@@ -13,26 +13,20 @@ use LazyJson\{
     StringElement,
 };
 use LazyJson\Tests\Unit\Fixtures\TempFileHelper;
-use PHPUnit\Framework\Attributes\{
-    CoversClass,
-    DataProvider,
-    Small,
-    TestDox,
-    UsesClass,
-};
 use PHPUnit\Framework\TestCase;
 use SplFileObject;
 use UnexpectedValueException;
 
-#[TestDox('JsonElement')]
-#[CoversClass(JsonElement::class)]
-#[UsesClass(ArrayElement::class)]
-#[UsesClass(BooleanElement::class)]
-#[UsesClass(NullElement::class)]
-#[UsesClass(NumberElement::class)]
-#[UsesClass(ObjectElement::class)]
-#[UsesClass(StringElement::class)]
-#[Small]
+/**
+ * @testdox \LazyJson\JsonElement
+ * @covers \LazyJson\JsonElement
+ * @uses \LazyJson\ArrayElement
+ * @uses \LazyJson\BooleanElement
+ * @uses \LazyJson\NullElement
+ * @uses \LazyJson\NumberElement
+ * @uses \LazyJson\ObjectElement
+ * @uses \LazyJson\StringElement
+ */
 class JsonElementTest extends TestCase
 {
     // Static methods
@@ -134,8 +128,10 @@ class JsonElementTest extends TestCase
 
     // Tests
 
-    #[DataProvider('jsonProvider')]
-    #[TestDox('loading a JSON with the value "$json" must return an instance of $expected.')]
+    /**
+     * @dataProvider jsonProvider
+     * @testdox loading a JSON with the value "$json" must return an instance of $expected.
+     */
     public function testInstance(string $json, string $expected): void
     {
         // Prepare
@@ -149,8 +145,10 @@ class JsonElementTest extends TestCase
         $this->assertInstanceOf(JsonElement::class, $instance);
     }
 
-    #[DataProvider('invalidJsonProvider')]
-    #[TestDox('loading an invalid JSON file must throw an exception.')]
+    /**
+     * @dataProvider invalidJsonProvider
+     * @testdox loading an invalid JSON file must throw an exception.
+     */
     public function testInvalidInstance(SplFileObject $file, string $expected): void
     {
         // Expect
@@ -202,7 +200,9 @@ class JsonElementTest extends TestCase
         };
     }
 
-    #[TestDox('Loading a generic element must work jsonSerializable')]
+    /**
+     * @testdox Loading a generic element must work jsonSerializable
+     */
     public function testJsonSerialize(): void
     {
         // Prepare
@@ -217,7 +217,9 @@ class JsonElementTest extends TestCase
         $this->assertEquals('"cached test"', $result2);
     }
 
-    #[TestDox('Loading a generic element must work getDecodedValue')]
+    /**
+     * @testdox Loading a generic element must work getDecodedValue
+     */
     public function testGetDecodedValue(): void
     {
         // Prepare
@@ -232,7 +234,9 @@ class JsonElementTest extends TestCase
         $this->assertEquals('cached test', $result2);
     }
 
-    #[TestDox('Loading a generic element with invalid file must throw an Exception')]
+    /**
+     * @testdox Loading a generic element with invalid file must throw an Exception
+     */
     public function testGetDecodedValueWithInvalidFileContent(): void
     {
         // Prepare

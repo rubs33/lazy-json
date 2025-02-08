@@ -8,14 +8,14 @@ RUN composer validate --strict
 
 RUN composer install --no-interaction --no-progress --ignore-platform-reqs --prefer-dist
 
-FROM php:8.1-cli-alpine AS base_php
+FROM php:7.4-cli-alpine AS base_php
 
 RUN apk update && \
     apk add --no-cache --virtual .dev-exts \
         $PHPIZE_DEPS \
         linux-headers \
         && \
-    pecl install xdebug-3.4.1 && \
+    pecl install xdebug-3.1.6 && \
     docker-php-ext-enable xdebug && \
     apk del --no-cache .dev-exts && \
     cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini

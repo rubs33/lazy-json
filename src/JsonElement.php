@@ -32,7 +32,6 @@ use InvalidArgumentException;
 use JsonSerializable;
 use SplFileObject;
 use RuntimeException;
-use Stringable;
 use UnexpectedValueException;
 
 use function ctype_digit;
@@ -44,7 +43,7 @@ use const SEEK_SET;
 /**
  * Abstract class that represents an element of a JSON
  */
-abstract class JsonElement implements JsonSerializable, Stringable
+abstract class JsonElement implements JsonSerializable
 {
     // PROPERTIES
 
@@ -52,25 +51,25 @@ abstract class JsonElement implements JsonSerializable, Stringable
      * Instance of the SplFileHandler to read the JSON file
      * @var SplFileObject
      */
-    protected readonly SplFileObject $fileHandler;
+    protected SplFileObject $fileHandler;
 
     /**
      * Initial position (byte) of the element in the file
      * @var int<0,max>
      */
-    protected readonly int $startPosition;
+    protected int $startPosition;
 
     /**
      * Final position (byte) of the element in the file
      * @var int<0,max>
      */
-    protected readonly int $endPosition;
+    protected int $endPosition;
 
     /**
      * Whether to use cache to store useful data to improve performance
      * @var bool
      */
-    protected readonly bool $useCache;
+    protected bool $useCache;
 
     // ABSTRACT METHODS
 
@@ -81,7 +80,7 @@ abstract class JsonElement implements JsonSerializable, Stringable
      * (default false)
      * @return array<mixed>|object|string|int|float|bool|null
      */
-    abstract public function getDecodedValue(bool $associative = false): array|object|string|int|float|bool|null;
+    abstract public function getDecodedValue(bool $associative = false);
 
     /**
      * Return a string that represents the object
@@ -233,7 +232,7 @@ abstract class JsonElement implements JsonSerializable, Stringable
      *
      * @return mixed The value to be serialized
      */
-    final public function jsonSerialize(): mixed
+    final public function jsonSerialize()
     {
         return $this->getDecodedValue();
     }

@@ -6,7 +6,7 @@ If you are interested to know how to use it, you can see the [Usage](Usage.md).
 
 ## Classes
 
-### abstract `LazyJson\JsonElement` implements [`JsonSerializable`](https://www.php.net/JsonSerializable), [`Stringable`](https://www.php.net/Stringable)
+### abstract `LazyJson\JsonElement` implements [`JsonSerializable`](https://www.php.net/JsonSerializable)
 
 Abstract class for wrapper classes of JSON elements.
 
@@ -43,7 +43,7 @@ Note: only the current element of the file will be parsed. If the element is a s
 
 #### public function `__toString()`: string
 
-Magic method to return the object as a string, when requested (from [`Stringable`](https://www.php.net/Stringable) interface)
+Magic method to return the object as a string, when requested.
 
 
 #### public function `jsonSerialize()`

@@ -12,7 +12,7 @@ Its primary goal is to provide a **memory-efficient** way to **access** JSON dat
 * **Memory-efficient**: Optimized for large JSON files, supporting arrays, objects, and strings, with minimal memory usage during navigation.
 * **Intuitive**: Navigate the JSON as if it were parsed by `json_decode`, without needing to load the entire structure into memory.
 * **Zero dependencies**: No third-party libraries required, only standard PHP extensions.
-* **PHP 8.1+ compatible**.
+* **PHP 7.4+ compatible**.
 * **High test coverage**: Rigorous unit tests ensure reliability.
 * **MIT License**: You have the freedom to use, modify, and distribute it in both open-source and proprietary projects, with no warranty.
 
@@ -44,10 +44,16 @@ For a JSON file with:
 
 ## Installation
 
-To use this library, you can install it via [Composer](https://getcomposer.org/):
+To use this library in PHP 7.4, you can install it via [Composer](https://getcomposer.org/):
 
 ```sh
-$ composer require lazy-json/lazy-json
+$ composer require 'lazy-json/lazy-json:dev-php7'
+```
+
+To use this library in PHP 8.1+, you can install using:
+
+```sh
+$ composer require 'lazy-json/lazy-json'
 ```
 
 ## Documentation / API

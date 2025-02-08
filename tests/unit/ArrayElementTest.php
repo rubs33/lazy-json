@@ -4,35 +4,23 @@ namespace LazyJson\Tests\Unit;
 
 use LazyJson\{
     ArrayElement,
-    BooleanElement,
     JsonElement,
-    NumberElement,
-    NullElement,
-    ObjectElement,
-    StringElement,
 };
 use LazyJson\Tests\Unit\Fixtures\TempFileHelper;
 use LogicException;
-use PHPUnit\Framework\Attributes\{
-    CoversClass,
-    DataProvider,
-    Group,
-    Large,
-    TestDox,
-    UsesClass,
-};
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
-#[TestDox('ArrayElement')]
-#[CoversClass(ArrayElement::class)]
-#[UsesClass(BooleanElement::class)]
-#[UsesClass(JsonElement::class)]
-#[UsesClass(NumberElement::class)]
-#[UsesClass(NullElement::class)]
-#[UsesClass(ObjectElement::class)]
-#[UsesClass(StringElement::class)]
-#[Large]
+/**
+ * @testdox \LazyJson\ArrayElement
+ * @covers \LazyJson\ArrayElement
+ * @uses \LazyJson\BooleanElement
+ * @uses \LazyJson\JsonElement
+ * @uses \LazyJson\NumberElement
+ * @uses \LazyJson\NullElement
+ * @uses \LazyJson\ObjectElement
+ * @uses \LazyJson\StringElement
+ */
 class ArrayElementTest extends TestCase
 {
     // Static methods
@@ -108,8 +96,10 @@ class ArrayElementTest extends TestCase
 
     // Tests
 
-    #[DataProvider('jsonArrayProvider')]
-    #[TestDox('loading a JSON with an array must return an ArrayElement instance.')]
+    /**
+     * @dataProvider jsonArrayProvider
+     * @testdox loading a JSON with an array must return an ArrayElement instance.
+     */
     public function testInstance($json): void
     {
         // Prepare
@@ -123,8 +113,10 @@ class ArrayElementTest extends TestCase
         $this->assertInstanceOf(JsonElement::class, $instance);
     }
 
-    #[DataProvider('jsonArrayProvider')]
-    #[TestDox('loading a JSON with an array must be able to convert to string.')]
+    /**
+     * @dataProvider jsonArrayProvider
+     * @testdox loading a JSON with an array must be able to convert to string.
+     */
     public function testStringable($json): void
     {
         // Prepare
@@ -138,8 +130,10 @@ class ArrayElementTest extends TestCase
         $this->assertEquals('Array', $value);
     }
 
-    #[DataProvider('jsonArrayProvider')]
-    #[TestDox('loading a JSON with an array expects the elements to be a JsonElement.')]
+    /**
+     * @dataProvider jsonArrayProvider
+     * @testdox loading a JSON with an array expects the elements to be a JsonElement.
+     */
     public function testIteratorTypes(string $json): void
     {
         // Prepare
@@ -153,8 +147,10 @@ class ArrayElementTest extends TestCase
         $this->assertContainsOnlyInstancesOf(JsonElement::class, $iterator);
     }
 
-    #[DataProvider('jsonArrayProvider')]
-    #[TestDox('loading a JSON with an array expects to be possissible to traverse the elements twice.')]
+    /**
+     * @dataProvider jsonArrayProvider
+     * @testdox loading a JSON with an array expects to be possissible to traverse the elements twice.
+     */
     public function testMultipleTraverseIterator(string $json): void
     {
         // Prepare
@@ -163,11 +159,11 @@ class ArrayElementTest extends TestCase
 
         // Execute
         $elements1 = array_map(
-            static fn(JsonElement $element): mixed => $element->getDecodedValue(),
+            static fn(JsonElement $element) => $element->getDecodedValue(),
             iterator_to_array($instance->getIterator()),
         );
         $elements2 = array_map(
-            static fn(JsonElement $element): mixed => $element->getDecodedValue(),
+            static fn(JsonElement $element) => $element->getDecodedValue(),
             iterator_to_array($instance->getIterator()),
         );
 
@@ -175,8 +171,10 @@ class ArrayElementTest extends TestCase
         $this->assertEquals($elements1, $elements2);
     }
 
-    #[DataProvider('jsonArrayProvider')]
-    #[TestDox('loading a JSON with an array expects to be possissible to traverse the elements twice, even with disabled cache.')]
+    /**
+     * @dataProvider jsonArrayProvider
+     * @testdox loading a JSON with an array expects to be possissible to traverse the elements twice, even with disabled cache.
+     */
     public function testMultipleTraverseWithoutCacheIterator(string $json): void
     {
         // Prepare
@@ -185,11 +183,11 @@ class ArrayElementTest extends TestCase
 
         // Execute
         $elements1 = array_map(
-            static fn(JsonElement $element): mixed => $element->getDecodedValue(),
+            static fn(JsonElement $element) => $element->getDecodedValue(),
             iterator_to_array($instance->getIterator()),
         );
         $elements2 = array_map(
-            static fn(JsonElement $element): mixed => $element->getDecodedValue(),
+            static fn(JsonElement $element) => $element->getDecodedValue(),
             iterator_to_array($instance->getIterator()),
         );
 
@@ -197,8 +195,10 @@ class ArrayElementTest extends TestCase
         $this->assertEquals($elements1, $elements2);
     }
 
-    #[DataProvider('jsonArrayWithDecodedValuesProvider')]
-    #[TestDox('loading a JSON with an array expects to be possible to decode elements.')]
+    /**
+     * @dataProvider jsonArrayWithDecodedValuesProvider
+     * @testdox loading a JSON with an array expects to be possible to decode elements.
+     */
     public function testIteratorValues(string $json, array $expected): void
     {
         // Prepare
@@ -208,7 +208,7 @@ class ArrayElementTest extends TestCase
         // Execute
         $iterator = $instance->getIterator();
         $elements = array_map(
-            static fn(JsonElement $element): mixed => $element->getDecodedValue(),
+            static fn(JsonElement $element) => $element->getDecodedValue(),
             iterator_to_array($iterator),
         );
 
@@ -216,8 +216,10 @@ class ArrayElementTest extends TestCase
         $this->assertEquals($expected, $elements);
     }
 
-    #[DataProvider('jsonArrayWithDecodedValuesProvider')]
-    #[TestDox('loading a JSON with an array expects the decoded elements to be equal $expected, even if the file cursor is moved during the iteration.')]
+    /**
+     * @dataProvider jsonArrayWithDecodedValuesProvider
+     * @testdox loading a JSON with an array expects the decoded elements to be equal $expected, even if the file cursor is moved during the iteration.
+     */
     public function testIteratorValuesHavingFileCursorMoves(string $json, array $expected): void
     {
         // Prepare
@@ -237,8 +239,10 @@ class ArrayElementTest extends TestCase
         $this->assertEquals($expected, $elements);
     }
 
-    #[DataProvider('jsonArrayWithDecodedValuesProvider')]
-    #[TestDox('loading a JSON with an array expects the decoded elements to be equal $expected, even if the file cursor is moved during the iteration and cache is disabled.')]
+    /**
+     * @dataProvider jsonArrayWithDecodedValuesProvider
+     * @testdox loading a JSON with an array expects the decoded elements to be equal $expected, even if the file cursor is moved during the iteration and cache is disabled.
+     */
     public function testIteratorValuesHavingFileCursorMovesAndDisabledCache(string $json, array $expected): void
     {
         // Prepare
@@ -258,8 +262,10 @@ class ArrayElementTest extends TestCase
         $this->assertEquals($expected, $elements);
     }
 
-    #[DataProvider('nonEmptyJsonArrayWithValuesProvider')]
-    #[TestDox('loading a JSON with an array expects to acess random elements correctly.')]
+    /**
+     * @dataProvider nonEmptyJsonArrayWithValuesProvider
+     * @testdox loading a JSON with an array expects to acess random elements correctly.
+     */
     public function testOffsetGet(string $json, array $expected): void
     {
         // Prepare
@@ -283,8 +289,10 @@ class ArrayElementTest extends TestCase
         $this->assertEquals(null, $instance['a']);
     }
 
-    #[DataProvider('nonEmptyJsonArrayWithValuesProvider')]
-    #[TestDox('loading a JSON with an array expects to acess random elements correctly, even if cache is disabled.')]
+    /**
+     * @dataProvider nonEmptyJsonArrayWithValuesProvider
+     * @testdox loading a JSON with an array expects to acess random elements correctly, even if cache is disabled.
+     */
     public function testOffsetGetHavingDisabledCache(string $json, array $expected): void
     {
         // Prepare
@@ -303,8 +311,10 @@ class ArrayElementTest extends TestCase
         $this->assertEquals(null, $instance['a']);
     }
 
-    #[DataProvider('nonEmptyJsonArrayWithValuesProvider')]
-    #[TestDox('loading a JSON with an array expects to be able to check if offset exists.')]
+    /**
+     * @dataProvider nonEmptyJsonArrayWithValuesProvider
+     * @testdox loading a JSON with an array expects to be able to check if offset exists.
+     */
     public function testOffsetExists(string $json, array $expected): void
     {
         // Prepare
@@ -321,8 +331,10 @@ class ArrayElementTest extends TestCase
         $this->assertEquals(false, isset($instance['a']));
     }
 
-    #[DataProvider('nonEmptyJsonArrayWithValuesProvider')]
-    #[TestDox('loading a JSON with an array expects to be able to check if offset exists, even if cache is disabled.')]
+    /**
+     * @dataProvider nonEmptyJsonArrayWithValuesProvider
+     * @testdox loading a JSON with an array expects to be able to check if offset exists, even if cache is disabled.
+     */
     public function testOffsetExistsHavingDisabledCache(string $json, array $expected): void
     {
         // Prepare
@@ -339,7 +351,9 @@ class ArrayElementTest extends TestCase
         $this->assertEquals(false, isset($instance['a']));
     }
 
-    #[TestDox('loading a JSON with an array expects to be able to check if offset exists using cache.')]
+    /**
+     * @testdox loading a JSON with an array expects to be able to check if offset exists using cache.
+     */
     public function testOffsetExistsCache(): void
     {
         // Prepare
@@ -360,7 +374,9 @@ class ArrayElementTest extends TestCase
         $this->assertEquals(true, isset($instance[2]));
     }
 
-    #[TestDox('loading a JSON with an array expects to throw an exeption if trying to set an element to an offset.')]
+    /**
+     * @testdox loading a JSON with an array expects to throw an exeption if trying to set an element to an offset.
+     */
     public function testOffsetSet(): void
     {
         // Prepare
@@ -375,7 +391,9 @@ class ArrayElementTest extends TestCase
         $instance[0] = true;
     }
 
-    #[TestDox('loading a JSON with an array expects to throw an exeption if trying to unset an element of an offset.')]
+    /**
+     * @testdox loading a JSON with an array expects to throw an exeption if trying to unset an element of an offset.
+     */
     public function testOffsetUnset(): void
     {
         // Prepare
@@ -390,8 +408,10 @@ class ArrayElementTest extends TestCase
         unset($instance[0]);
     }
 
-    #[DataProvider('jsonArrayWithDecodedValuesProvider')]
-    #[TestDox('loading a JSON with an array expects to check the count correctly.')]
+    /**
+     * @dataProvider jsonArrayWithDecodedValuesProvider
+     * @testdox loading a JSON with an array expects to check the count correctly.
+     */
     public function testCount(string $json, array $expected): void
     {
         // Prepare
@@ -405,8 +425,10 @@ class ArrayElementTest extends TestCase
         $this->assertEquals(count($expected), $count);
     }
 
-    #[DataProvider('jsonArrayWithDecodedValuesProvider')]
-    #[TestDox('loading a JSON with an array expects to check the count twice correctly.')]
+    /**
+     * @dataProvider jsonArrayWithDecodedValuesProvider
+     * @testdox loading a JSON with an array expects to check the count twice correctly.
+     */
     public function testCountTwice(string $json, array $expected): void
     {
         // Prepare
@@ -422,8 +444,10 @@ class ArrayElementTest extends TestCase
         $this->assertEquals(count($expected), $count2);
     }
 
-    #[DataProvider('jsonArrayWithDecodedValuesProvider')]
-    #[TestDox('loading a JSON with an array expects to check the count twice correctly, even if cache is disabled.')]
+    /**
+     * @dataProvider jsonArrayWithDecodedValuesProvider
+     * @testdox loading a JSON with an array expects to check the count twice correctly, even if cache is disabled.
+     */
     public function testCountTwiceHavingDisabledCache(string $json, array $expected): void
     {
         // Prepare
@@ -439,8 +463,10 @@ class ArrayElementTest extends TestCase
         $this->assertEquals(count($expected), $count2);
     }
 
-    #[DataProvider('jsonArrayWithDecodedValuesProvider')]
-    #[TestDox('loading a JSON with an array expects to be JSON serializable.')]
+    /**
+     * @dataProvider jsonArrayWithDecodedValuesProvider
+     * @testdox loading a JSON with an array expects to be JSON serializable.
+     */
     public function testJsonSerializable(string $json, array $expected): void
     {
         // Prepare
@@ -454,8 +480,10 @@ class ArrayElementTest extends TestCase
         $this->assertEquals(json_encode($expected), $result);
     }
 
-    #[DataProvider('invalidJsonArrayProvider')]
-    #[TestDox('loading a JSON with an invalid array expects to throw an exception.')]
+    /**
+     * @dataProvider invalidJsonArrayProvider
+     * @testdox loading a JSON with an invalid array expects to throw an exception.
+     */
     public function testInvalidJsonArray(string $json): void
     {
         // Prepare
@@ -469,8 +497,10 @@ class ArrayElementTest extends TestCase
         $instance->getDecodedValue();
     }
 
-    #[Group('memory')]
-    #[Testdox('loading a very big JSON array, it should not increase memory usage more than 1Kb.')]
+    /**
+     * @group memory
+     * @testdox loading a very big JSON array, it should not increase memory usage more than 1Kb.
+     */
     public function testMemoryUsage(): void
     {
         // Prepare

@@ -3,26 +3,19 @@
 namespace LazyJson\Tests\Unit;
 
 use LazyJson\{
-    ArrayElement,
     BooleanElement,
     JsonElement,
 };
 use LazyJson\Tests\Unit\Fixtures\TempFileHelper;
-use PHPUnit\Framework\Attributes\{
-    CoversClass,
-    DataProvider,
-    Small,
-    TestDox,
-    UsesClass,
-};
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
-#[Testdox('BooleanElement')]
-#[CoversClass(BooleanElement::class)]
-#[UsesClass(ArrayElement::class)]
-#[UsesClass(JsonElement::class)]
-#[Small]
+/**
+ * @testdox \LazyJson\BooleanElement
+ * @covers \LazyJson\BooleanElement
+ * @uses \LazyJson\ArrayElement
+ * @uses \LazyJson\JsonElement
+ */
 class BooleanElementTest extends TestCase
 {
     // Static methods
@@ -71,8 +64,10 @@ class BooleanElementTest extends TestCase
 
     // Tests
 
-    #[DataProvider('jsonBooleanProvider')]
-    #[TestDox('loading a JSON with the value "$json" must return a BooleanElement instance.')]
+    /**
+     * @dataProvider jsonBooleanProvider
+     * @testdox loading a JSON with the value "$json" must return a BooleanElement instance.
+     */
     public function testInstance(string $json): void
     {
         // Prepare
@@ -86,8 +81,10 @@ class BooleanElementTest extends TestCase
         $this->assertInstanceOf(JsonElement::class, $instance);
     }
 
-    #[DataProvider('jsonBooleanWithDecodedValuesProvider')]
-    #[TestDox('loading a JSON with the value "$json" must be able to convert to string.')]
+    /**
+     * @dataProvider jsonBooleanWithDecodedValuesProvider
+     * @testdox loading a JSON with the value "$json" must be able to convert to string.
+     */
     public function testStringable(string $json, bool $expected): void
     {
         // Prepare
@@ -101,8 +98,10 @@ class BooleanElementTest extends TestCase
         $this->assertEquals($expected ? 'true' : 'false', $value);
     }
 
-    #[DataProvider('jsonBooleanWithDecodedValuesProvider')]
-    #[Testdox('loading a JSON with the value "$json" must be able to decode to a boolean value.')]
+    /**
+     * @dataProvider jsonBooleanWithDecodedValuesProvider
+     * @testdox loading a JSON with the value "$json" must be able to decode to a boolean value.
+     */
     public function testDecodedValue(string $json, bool $expected): void
     {
         // Prepare
@@ -116,7 +115,9 @@ class BooleanElementTest extends TestCase
         $this->assertEquals($expected, $value);
     }
 
-    #[TestDox('loading a JSON with an array with 2 booleans expects to parse the first element to get the second.')]
+    /**
+     * @testdox loading a JSON with an array with 2 booleans expects to parse the first element to get the second.
+     */
     public function testReadCurrentJsonElement(): void
     {
         // Prepare
@@ -130,8 +131,10 @@ class BooleanElementTest extends TestCase
         $this->assertEquals(true, $value);
     }
 
-    #[DataProvider('invalidJsonBooleanProvider')]
-    #[TestDox('loading a JSON with the value "$json" must throw an exception.')]
+    /**
+     * @dataProvider invalidJsonBooleanProvider
+     * @testdox loading a JSON with the value "$json" must throw an exception.
+     */
     public function testInvalidBoolean(string $json): void
     {
         // Prepare

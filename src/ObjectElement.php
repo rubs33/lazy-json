@@ -39,7 +39,7 @@ class ObjectElement extends JsonElement implements ArrayAccess, Countable, Itera
      *
      * @var int<0,max>
      */
-    protected readonly int $totalProperties;
+    protected int $totalProperties;
 
     // CONCRETE METHODS
 
@@ -73,7 +73,7 @@ class ObjectElement extends JsonElement implements ArrayAccess, Countable, Itera
      * @return void
      * @throws LogicException
      */
-    public function __set(string $name, mixed $value): void
+    public function __set(string $name, $value): void
     {
         throw new LogicException('The object is read-only and cannot overwrite a value');
     }
@@ -92,7 +92,6 @@ class ObjectElement extends JsonElement implements ArrayAccess, Countable, Itera
 
     /**
      * Magic method to return the object as a string, when requested
-     * (from Stringable interface)
      *
      * @return string
      */
@@ -109,7 +108,7 @@ class ObjectElement extends JsonElement implements ArrayAccess, Countable, Itera
      * @return object|array<string,mixed> The decoded version of the current object
      * @throws UnexpectedValueException If the JSON is not valid
      */
-    public function getDecodedValue(bool $associative = false): object|array
+    public function getDecodedValue(bool $associative = false)
     {
         $data = [];
         foreach ($this->getIterator() as $property => $jsonElement) {
@@ -256,7 +255,7 @@ class ObjectElement extends JsonElement implements ArrayAccess, Countable, Itera
      * @param mixed $offset The offset to be checked
      * @return bool Whether the offset exists in the object
      */
-    public function offsetExists(mixed $offset): bool
+    public function offsetExists($offset): bool
     {
         if (!is_string($offset)) {
             return false;
@@ -288,7 +287,7 @@ class ObjectElement extends JsonElement implements ArrayAccess, Countable, Itera
      * @param mixed $offset The offset (property name) of the element to be fetched
      * @return ?JsonElement The value of the element (wrapped by LazyJson\JsonElement) or null if it does not exist
      */
-    public function offsetGet(mixed $offset): ?JsonElement
+    public function offsetGet($offset): ?JsonElement
     {
         if (!is_string($offset)) {
             return null;
@@ -313,7 +312,7 @@ class ObjectElement extends JsonElement implements ArrayAccess, Countable, Itera
      *
      * @throws LogicException Always throws LogicException
      */
-    public function offsetSet(mixed $offset, mixed $value): void
+    public function offsetSet($offset, $value): void
     {
         throw new LogicException('ObjectElement does not allow to set properties dynamically.');
     }
@@ -324,7 +323,7 @@ class ObjectElement extends JsonElement implements ArrayAccess, Countable, Itera
      *
      * @throws LogicException Always throws LogicException
      */
-    public function offsetUnset(mixed $offset): void
+    public function offsetUnset($offset): void
     {
         throw new LogicException('ObjectElement does not allow to unset properties dynamically.');
     }

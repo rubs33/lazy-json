@@ -3,26 +3,19 @@
 namespace LazyJson\Tests\Unit;
 
 use LazyJson\{
-    ArrayElement,
     NumberElement,
     JsonElement,
 };
 use LazyJson\Tests\Unit\Fixtures\TempFileHelper;
-use PHPUnit\Framework\Attributes\{
-    CoversClass,
-    DataProvider,
-    Small,
-    TestDox,
-    UsesClass,
-};
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
-#[TestDox('NumberElement')]
-#[CoversClass(NumberElement::class)]
-#[UsesClass(ArrayElement::class)]
-#[UsesClass(JsonElement::class)]
-#[Small]
+/**
+ * @testdox \LazyJson\NumberElement
+ * @covers \LazyJson\NumberElement
+ * @uses \LazyJson\ArrayElement
+ * @uses \LazyJson\JsonElement
+ */
 class NumberElementTest extends TestCase
 {
     // Static methods
@@ -112,8 +105,10 @@ class NumberElementTest extends TestCase
 
     // Tests
 
-    #[DataProvider('jsonNumberProvider')]
-    #[TestDox('loading a JSON with the value "$json" must return a NumberElement instance.')]
+    /**
+     * @dataProvider jsonNumberProvider
+     * @testdox loading a JSON with the value "$json" must return a NumberElement instance.
+     */
     public function testInstance(string $json): void
     {
         // Prepare
@@ -127,8 +122,10 @@ class NumberElementTest extends TestCase
         $this->assertInstanceOf(JsonElement::class, $instance);
     }
 
-    #[DataProvider('jsonNumberProvider')]
-    #[TestDox('loading a JSON with the value "$json" must be able to convert to string.')]
+    /**
+     * @dataProvider jsonNumberProvider
+     * @testdox loading a JSON with the value "$json" must be able to convert to string.
+     */
     public function testStringable(string $json): void
     {
         // Prepare
@@ -142,8 +139,10 @@ class NumberElementTest extends TestCase
         $this->assertEquals(var_export(json_decode($json), true), $value);
     }
 
-    #[DataProvider('jsonNumberProvider')]
-    #[TestDox('loading a JSON with the value "$json" must be able to decode to a numeric value.')]
+    /**
+     * @dataProvider jsonNumberProvider
+     * @testdox loading a JSON with the value "$json" must be able to decode to a numeric value.
+     */
     public function testDecodedValue(string $json): void
     {
         // Prepare
@@ -157,8 +156,10 @@ class NumberElementTest extends TestCase
         $this->assertEquals(json_decode($json), $value);
     }
 
-    #[DataProvider('jsonNumberProvider')]
-    #[TestDox('loading a JSON with the value "$json" must be able to get raw value.')]
+    /**
+     * @dataProvider jsonNumberProvider
+     * @testdox loading a JSON with the value "$json" must be able to get raw value.
+     */
     public function testGetRawValue(string $json): void
     {
         // Prepare
@@ -172,8 +173,10 @@ class NumberElementTest extends TestCase
         $this->assertEquals(trim($json), $value);
     }
 
-    #[DataProvider('invalidJsonNumberProvider')]
-    #[TestDox('loading a JSON with the value "$json" must throw an exception.')]
+    /**
+     * @dataProvider invalidJsonNumberProvider
+     * @testdox loading a JSON with the value "$json" must throw an exception.
+     */
     public function testInvalidNumber(string $json): void
     {
         // Prepare
@@ -187,7 +190,9 @@ class NumberElementTest extends TestCase
         $instance->getDecodedValue();
     }
 
-    #[TestDox('loading a JSON with an array with 2 numbers expects to parse the first element to get the second.')]
+    /**
+     * @testdox loading a JSON with an array with 2 numbers expects to parse the first element to get the second.
+     */
     public function testReadCurrentJsonElement(): void
     {
         // Prepare

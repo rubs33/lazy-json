@@ -17,11 +17,10 @@ class BooleanElement extends JsonElement
      * The boolean value
      * @var bool
      */
-    protected readonly bool $value;
+    protected bool $value;
 
     /**
      * Magic method to return the object as a string, when requested
-     * (from Stringable interface)
      *
      * @return string
      */

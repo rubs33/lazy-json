@@ -15,7 +15,6 @@ class NullElement extends JsonElement
 {
     /**
      * Magic method to return the object as a string, when requested
-     * (from Stringable interface)
      *
      * @return string
      */
@@ -33,7 +32,7 @@ class NullElement extends JsonElement
      * (default false)
      * @return null Always null
      */
-    public function getDecodedValue(bool $associative = false): int|null
+    public function getDecodedValue(bool $associative = false): ?int
     {
         $this->parse();
 

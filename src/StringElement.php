@@ -7,7 +7,6 @@ namespace LazyJson;
 use Exception;
 use IteratorAggregate;
 use RuntimeException;
-use Stringable;
 use Traversable;
 use UnexpectedValueException;
 
@@ -69,7 +68,6 @@ class StringElement extends JsonElement implements IteratorAggregate
 
     /**
      * Magic method to return the object as a string, when requested
-     * (from Stringable interface)
      *
      * @return string
      */

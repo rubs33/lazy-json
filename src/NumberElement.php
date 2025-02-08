@@ -27,15 +27,15 @@ class NumberElement extends JsonElement
 {
     /**
      * The numeric value of the JSON number
-     * @var int|float
+     * @var int|float|null
      */
-    protected readonly int|float $value;
+    protected $value = null;
 
     /**
      * The raw value read from the JSON file
      * @var string
      */
-    protected readonly string $rawValue;
+    protected string $rawValue;
 
     /**
      * Decode a JSON-encoded number into a PHP int or float
@@ -44,7 +44,7 @@ class NumberElement extends JsonElement
      * @return int|float
      * @throws LogicException If it failed to decode the number
      */
-    private static function decodeNumber(string $number): int|float
+    private static function decodeNumber(string $number)
     {
         try {
             $value = json_decode($number, null, 1, JSON_THROW_ON_ERROR | JSON_PRESERVE_ZERO_FRACTION);
@@ -67,7 +67,6 @@ class NumberElement extends JsonElement
 
     /**
      * Magic method to return the object as a string, when requested
-     * (from Stringable interface)
      *
      * @return string
      */
@@ -83,11 +82,16 @@ class NumberElement extends JsonElement
      * (default false)
      * @return int|float
      */
-    public function getDecodedValue(bool $associative = false): int|float
+    public function getDecodedValue(bool $associative = false)
     {
-        if (!isset($this->value)) {
+        if ($this->value === null) {
             $this->parse();
         }
+        // @codeCoverageIgnoreStart
+        if ($this->value === null) {
+            throw new \UnexpectedValueException('The value should not be null');
+        }
+        // @codeCoverageIgnoreEnd
         return $this->value;
     }
 
@@ -227,7 +231,7 @@ class NumberElement extends JsonElement
      * @param int|float $value The real value of the current JSON element
      * @return void
      */
-    protected function setValue(int|float $value): void
+    protected function setValue($value): void
     {
         if (!isset($this->value)) {
             $this->value = $value;

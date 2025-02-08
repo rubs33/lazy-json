@@ -40,7 +40,7 @@ class ArrayElement extends JsonElement implements ArrayAccess, Countable, Iterat
      *
      * @var int<0,max>
      */
-    protected readonly int $totalElements;
+    protected int $totalElements;
 
     // CONCRETE METHODS
 
@@ -63,7 +63,6 @@ class ArrayElement extends JsonElement implements ArrayAccess, Countable, Iterat
 
     /**
      * Magic method to return the object as a string, when requested
-     * (from Stringable interface)
      *
      * @return string
      */
@@ -180,7 +179,7 @@ class ArrayElement extends JsonElement implements ArrayAccess, Countable, Iterat
      * @param mixed $offset The offset to be checked
      * @return bool Whether the offset exists in the array
      */
-    public function offsetExists(mixed $offset): bool
+    public function offsetExists($offset): bool
     {
         if (!is_int($offset)) {
             return false;
@@ -210,7 +209,7 @@ class ArrayElement extends JsonElement implements ArrayAccess, Countable, Iterat
      * @param mixed $offset The offset of the element to be fetched
      * @return ?JsonElement The value of the element (wrapped by LazyJson\JsonElement) or null if it does not exist
      */
-    public function offsetGet(mixed $offset): ?JsonElement
+    public function offsetGet($offset): ?JsonElement
     {
         if (!is_int($offset)) {
             return null;
@@ -235,7 +234,7 @@ class ArrayElement extends JsonElement implements ArrayAccess, Countable, Iterat
      *
      * @throws LogicException Always throws LogicException
      */
-    public function offsetSet(mixed $offset, mixed $value): void
+    public function offsetSet($offset, $value): void
     {
         throw new LogicException('ArrayElement does not allow to set elements dynamically.');
     }
@@ -246,7 +245,7 @@ class ArrayElement extends JsonElement implements ArrayAccess, Countable, Iterat
      *
      * @throws LogicException Always throws LogicException
      */
-    public function offsetUnset(mixed $offset): void
+    public function offsetUnset($offset): void
     {
         throw new LogicException('ArrayElement does not allow to unset elements dynamically.');
     }

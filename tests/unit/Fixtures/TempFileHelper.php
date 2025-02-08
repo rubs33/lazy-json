@@ -22,7 +22,7 @@ final class TempFileHelper
      * @return SplFileObject An instance of the file already opened to read
      * @throws RuntimeException If the file cannot be created
      */
-    public static function createTempFile(string|iterable $fileContent, $mode = 'r'): SplFileObject
+    public static function createTempFile($fileContent, $mode = 'r'): SplFileObject
     {
         $dir = sys_get_temp_dir();
         $prefix = 'test-';
@@ -63,7 +63,7 @@ final class TempFileHelper
      * @return void
      * @throws RuntimeException If the file cannot be created
      */
-    protected static function clearTempFile($file): void
+    public static function clearTempFile($file): void
     {
         $result = file_exists($file) ? unlink($file) : true;
         if ($result === false) {

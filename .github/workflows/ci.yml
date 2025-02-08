@@ -4,9 +4,9 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "php7" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "php7" ]
 
 env:
   XDEBUG_MODE: "coverage"
@@ -25,7 +25,7 @@ jobs:
     - name: Install PHP with XDebug
       uses: shivammathur/setup-php@v2
       with:
-        php-version: 8.1
+        php-version: 7.4
         extensions: xdebug, ctype, curl, json, libxml, mbstring, phar, xml, xmlwriter
         coverage: xdebug
         tools: none
