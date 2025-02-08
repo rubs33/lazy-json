@@ -19,13 +19,13 @@ services:
                 echo "Access it using:"
                 echo -e "\t\$ docker compose exec lib sh"
                 echo ""
-                echo "To run the tests inside the container:"
+                echo "To run the tests, execute this command inside the container:"
                 echo -e "\t\$ composer test"
                 echo ""
-                echo "To run the tests outside the container:"
+                echo "To run the tests from your host:"
                 echo -e "\t\$ docker compose --profile test up"
                 echo ""
-                echo "To serve the doc (phpdoc) outside the container:"
+                echo "To serve the doc (phpdoc) from your host:"
                 echo -e "\t\$ docker compose --profile doc up"
                 sleep infinity
             '

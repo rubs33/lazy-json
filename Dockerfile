@@ -4,7 +4,9 @@ WORKDIR /build/
 
 COPY composer.* .
 
-RUN composer install --no-interaction
+RUN composer validate --strict
+
+RUN composer install --no-interaction --no-progress --ignore-platform-reqs --prefer-dist
 
 FROM php:8.1-cli-alpine AS base_php
 
@@ -40,3 +42,5 @@ COPY --from=builder --chown=lazy-json:lazy-json /usr/bin/composer /usr/bin/compo
 COPY --from=builder --chown=lazy-json:lazy-json /build/vendor ./vendor
 
 COPY --chown=lazy-json:lazy-json . .
+
+RUN composer check-platform-reqs
