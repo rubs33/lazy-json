@@ -17,7 +17,7 @@ use function is_string;
 use function sprintf;
 
 /**
- * Wrapper class that represents an Object of a JSON
+ * Wrapper class that represents an object of a JSON
  *
  * @implements ArrayAccess<string,JsonElement>
  * @implements IteratorAggregate<string,JsonElement>
