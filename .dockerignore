@@ -5,6 +5,7 @@
 .gitattributes
 .github
 .gitignore
+.phpdoc
 .phpunit.result.cache
 docker-compose.yml
 Dockerfile
