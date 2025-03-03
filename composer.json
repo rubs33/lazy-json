@@ -45,7 +45,8 @@
         }
     },
     "scripts": {
-        "test": "phpunit",
+        "test": "phpunit --testsuit unit",
+        "test-functional": "phpunit --testsuit functional",
         "phpstan": "phpstan analyse -c phpstan.neon",
         "cs": "phpcs --standard=PSR12 src",
         "deps": "composer-dependency-analyser"

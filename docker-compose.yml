@@ -41,6 +41,9 @@ services:
             target: runner
             args:
                 PHP_VERSION: ${PHP_VERSION:-8.1}
+        volumes:
+            - .:/usr/share/lazy-json
+            - /usr/share/lazy-json/vendor
         ports:
             - 8080:8080
         env_file:
@@ -51,10 +54,10 @@ services:
         entrypoint: /bin/sh -c
         command: >
             '
-                composer phpstan
-                composer cs
-                composer deps
-                composer test
+                composer run-script phpstan
+                composer run-script cs
+                composer run-script deps
+                composer run-script test
                 echo -e "\\nStarting to serve the test result (coverage) at http://localhost:8080"
                 php -S 0.0.0.0:8080 -t /usr/share/lazy-json/var/reports/tests/coverage/html/
             '
