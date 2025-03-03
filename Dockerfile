@@ -18,7 +18,7 @@ RUN apk update && \
     pecl install xdebug-3.4.1 && \
     docker-php-ext-enable xdebug && \
     apk del --no-cache .dev-exts && \
-    cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
+    cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
 
 FROM base_php AS runner
 

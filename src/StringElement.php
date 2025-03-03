@@ -26,6 +26,7 @@ use const JSON_THROW_ON_ERROR;
  * Wrapper class that represents a string of a JSON
  *
  * @implements IteratorAggregate<string>
+ * @package LazyJson
  */
 class StringElement extends JsonElement implements IteratorAggregate
 {

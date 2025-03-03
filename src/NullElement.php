@@ -10,6 +10,7 @@ use function sprintf;
 
 /**
  * Wrapper class that represents a null of a JSON
+ * @package LazyJson
  */
 class NullElement extends JsonElement
 {

@@ -43,6 +43,7 @@ use const SEEK_SET;
 
 /**
  * Abstract class that represents an element of a JSON
+ * @package LazyJson
  */
 abstract class JsonElement implements JsonSerializable, Stringable
 {
@@ -360,7 +361,7 @@ abstract class JsonElement implements JsonSerializable, Stringable
 
         if ($requireSize && strlen($bytes) !== $size && $this->fileHandler->eof()) {
             throw new UnexpectedValueException(sprintf(
-                'Invalid JSON. Unexpectedd end of file at position %d.',
+                'Invalid JSON. Unexpected end of file at position %d.',
                 $currentPosition,
             ));
         }
