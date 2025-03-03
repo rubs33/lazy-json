@@ -1,3 +1,5 @@
+ARG PHP_VERSION=8.1
+
 FROM composer:2 AS builder
 
 WORKDIR /build/
@@ -8,7 +10,7 @@ RUN composer validate --strict
 
 RUN composer install --no-interaction --no-progress --ignore-platform-reqs --prefer-dist
 
-FROM php:8.1-cli-alpine AS base_php
+FROM php:${PHP_VERSION}-cli-alpine AS base_php
 
 RUN apk update && \
     apk add --no-cache --virtual .dev-exts \

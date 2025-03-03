@@ -1,12 +1,14 @@
 name: lazy-json
 services:
     lib:
-        image: lazy-json:php-8.1-cli-alpine
+        image: lazy-json:php-${PHP_VERSION:-8.1}-cli-alpine
         pull_policy: never
         build:
             context: .
             dockerfile: Dockerfile
             target: runner
+            args:
+                PHP_VERSION: ${PHP_VERSION:-8.1}
         volumes:
             - .:/usr/share/lazy-json
             - /usr/share/lazy-json/vendor
@@ -31,12 +33,14 @@ services:
             '
 
     test:
-        image: lazy-json:php-8.1-cli-alpine
+        image: lazy-json:php-${PHP_VERSION:-8.1}-cli-alpine
         pull_policy: never
         build:
             context: .
             dockerfile: Dockerfile
             target: runner
+            args:
+                PHP_VERSION: ${PHP_VERSION:-8.1}
         ports:
             - 8080:8080
         env_file:
