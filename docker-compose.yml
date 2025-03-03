@@ -1,12 +1,14 @@
 name: lazy-json
 services:
     lib:
-        image: lazy-json:php-7.4-cli-alpine
+        image: lazy-json:php-${PHP_VERSION:-7.4}-cli-alpine
         pull_policy: never
         build:
             context: .
             dockerfile: Dockerfile
             target: runner
+            args:
+                PHP_VERSION: ${PHP_VERSION:-7.4}
         volumes:
             - .:/usr/share/lazy-json
             - /usr/share/lazy-json/vendor
@@ -31,12 +33,14 @@ services:
             '
 
     test:
-        image: lazy-json:php-7.4-cli-alpine
+        image: lazy-json:php-${PHP_VERSION:-7.4}-cli-alpine
         pull_policy: never
         build:
             context: .
             dockerfile: Dockerfile
             target: runner
+            args:
+                PHP_VERSION: ${PHP_VERSION:-7.4}
         ports:
             - 8080:8080
         env_file:
@@ -68,7 +72,7 @@ services:
         entrypoint: /bin/bash -c
         command: >
             "
-                /opt/phpdoc/bin/phpdoc run --no-interaction --ansi --encoding=UTF-8 --title='LazyJson' --cache-folder=/data/var/cache/phpdoc --log=/data/var/logs/phpdoc --directory=/data/src --examples-dir=/data/examples --visibility=public --target=/data/var/phpdoc
+                /opt/phpdoc/bin/phpdoc run --no-interaction --ansi --encoding=UTF-8 --title='LazyJson' --cache-folder=/data/var/cache/phpdoc --log=/data/var/logs/phpdoc --setting=graphs.enabled=true --examples-dir=/data/examples --visibility=public --directory=/data/src --target=/data/var/phpdoc
                 echo -e '\\nStarting to serve the phpdoc at http://localhost:8081'
                 php -S 0.0.0.0:8081 -t /data/var/phpdoc/
             "

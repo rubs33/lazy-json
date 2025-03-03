@@ -10,6 +10,7 @@ use function sprintf;
 
 /**
  * Wrapper class that represents a boolean of a JSON
+ * @package LazyJson
  */
 class BooleanElement extends JsonElement
 {

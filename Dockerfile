@@ -1,3 +1,5 @@
+ARG PHP_VERSION=7.4
+
 FROM composer:2 AS builder
 
 WORKDIR /build/
@@ -8,7 +10,7 @@ RUN composer validate --strict
 
 RUN composer install --no-interaction --no-progress --ignore-platform-reqs --prefer-dist
 
-FROM php:7.4-cli-alpine AS base_php
+FROM php:${PHP_VERSION}-cli-alpine AS base_php
 
 RUN apk update && \
     apk add --no-cache --virtual .dev-exts \
@@ -18,7 +20,7 @@ RUN apk update && \
     pecl install xdebug-3.1.6 && \
     docker-php-ext-enable xdebug && \
     apk del --no-cache .dev-exts && \
-    cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
+    cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
 
 FROM base_php AS runner
 

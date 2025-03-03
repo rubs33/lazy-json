@@ -22,6 +22,7 @@ use const JSON_PRESERVE_ZERO_FRACTION;
 
 /**
  * Wrapper class that represents a number of a JSON
+ * @package LazyJson
  */
 class NumberElement extends JsonElement
 {

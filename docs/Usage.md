@@ -15,12 +15,12 @@ $lazyObj = \LazyJson\JsonElement::load($file);
 
 The method `load` will detect the type of the root element of the JSON file (using an heuristic) and return an appropriate instance of a child class derived from `LazyJson\JsonElement`. The object will be an instance of one of these wrapper classes:
 
-* `LazyJson::NullElement`
-* `LazyJson::BooleanElement`
-* `LazyJson::NumberElement`
-* `LazyJson::StringElement`
-* `LazyJson::ArrayElement`
-* `LazyJson::ObjectElement`
+* `\LazyJson\NullElement`
+* `\LazyJson\BooleanElement`
+* `\LazyJson\NumberElement`
+* `\LazyJson\StringElement`
+* `\LazyJson\ArrayElement`
+* `\LazyJson\ObjectElement`
 
 Note: the method `load` will **not** parse the entire file imediatelly. It will just read the minimum number of bytes to detect the type of the root element of the JSON file. For example, if the file starts with the byte (char) `t`, it assumes the file content has a boolean value with the value `true`, since it is the unique valid JSON value that starts with the letter `t`. If it starts with `[`, it assumes the file has an array. And so on.
 

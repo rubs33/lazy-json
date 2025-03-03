@@ -21,6 +21,7 @@ use function sprintf;
  *
  * @implements ArrayAccess<int<0,max>,JsonElement>
  * @implements IteratorAggregate<JsonElement>
+ * @package LazyJson
  */
 class ArrayElement extends JsonElement implements ArrayAccess, Countable, IteratorAggregate
 {
@@ -153,7 +154,7 @@ class ArrayElement extends JsonElement implements ArrayAccess, Countable, Iterat
                 throw new UnexpectedValueException(sprintf(
                     'Invalid JSON array. Unexpected value at position %d (expected "," or "]", received "%s")',
                     $currentPosition,
-                    $this->readBytes(10),
+                    $char,
                 ));
             }
         }
@@ -165,7 +166,7 @@ class ArrayElement extends JsonElement implements ArrayAccess, Countable, Iterat
             new UnexpectedValueException(sprintf(
                 'Invalid JSON array. Unexpected value at position %d (expected "]", received "%s").',
                 $this->getCurrentFilePosition() - 1,
-                $this->readBytes(10),
+                $char,
             )),
         );
 

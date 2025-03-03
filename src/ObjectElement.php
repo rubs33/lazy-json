@@ -17,10 +17,11 @@ use function is_string;
 use function sprintf;
 
 /**
- * Wrapper class that represents an Object of a JSON
+ * Wrapper class that represents an object of a JSON
  *
  * @implements ArrayAccess<string,JsonElement>
  * @implements IteratorAggregate<string,JsonElement>
+ * @package LazyJson
  */
 class ObjectElement extends JsonElement implements ArrayAccess, Countable, IteratorAggregate
 {
@@ -241,7 +242,7 @@ class ObjectElement extends JsonElement implements ArrayAccess, Countable, Itera
             new UnexpectedValueException(sprintf(
                 'Invalid JSON object. Unexpected value at position %d (expected "}", received "%s").',
                 $this->getCurrentFilePosition() - 1,
-                $this->readBytes(10),
+                $char,
             )),
         );
 
@@ -352,7 +353,7 @@ class ObjectElement extends JsonElement implements ArrayAccess, Countable, Itera
         // Read "{"
         $char = $this->readBytes(1);
         assert(
-            $char === '[',
+            $char === '{',
             new UnexpectedValueException(sprintf(
                 'Invalid JSON object. Unexpected value for array at position %d.',
                 $this->getCurrentFilePosition() - 1,

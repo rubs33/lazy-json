@@ -37,7 +37,7 @@ For a JSON file with:
 
 ## Requirements
 
-* PHP 8.1 or higher
+* PHP 7.4 or higher
 * ext-ctype
 * ext-json
 * ext-spl
